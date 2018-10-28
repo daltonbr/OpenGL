@@ -4,3 +4,5 @@ This is my personal notes, from the course [OpenGL course](https://www.youtube.c
 
 * [Welcome To OpenGL](001-WelcomeToOpenGL/WelcomeToOpenGL.md)
 * [Setting Up](002-SettingUp/SettingUp.md)
+* [Using Modern OpenGL](./003-UsingModernOpenGL/UsingModernOpenGL.md)
+* [Vertex Buffers](./004-VertexBuffers/VertexBuffers.md)
