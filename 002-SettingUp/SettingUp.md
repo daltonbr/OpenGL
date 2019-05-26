@@ -21,5 +21,5 @@ GLFW is written in C and has native support for Windows, macOS and many Unix-lik
 
 ## Creating a VS Project
 
-In Windows, we are going to use the pre-builded binaries. We could also put the source code in a separated project and have it in there.
+In Windows, we are going to use the pre-built binaries. We could also put the source code in a separated project and have it in there.
 We are going to use the GLFW static library (`glfw3.lib`, from the `lib-vs2015` folder), not the dynamic ones.

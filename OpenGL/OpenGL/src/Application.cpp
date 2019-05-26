@@ -21,13 +21,14 @@ int main(void)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-	/* This function must be called afer creating the OpenGL Context */
+	/* This function must be called after creating the OpenGL Context */
 	if (glewInit() != GLEW_OK)
 	{
 		std::cout << "Error!" << std::endl;
 	}
 
-	std::cout << glGetString(GL_VERSION) << std::endl;	
+	/* Get the OpenGL version from our Graphic Hardware */
+	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	float positions[6] = {
 		-0.5f, -0.5f,
@@ -38,15 +39,19 @@ int main(void)
 	unsigned int buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 6 *  sizeof(float), positions, GL_STATIC_DRAW);
 
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, (const void*)0);
+	
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
+
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);		
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
