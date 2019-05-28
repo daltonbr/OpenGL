@@ -14,7 +14,7 @@ static unsigned int CompileShader(unsigned int type, const std::string& source)
 	if (result == GL_FALSE)
 	{
 		int length;
-		glGetShaderiv(id, GL_INFO_LOG_LENGHT, &lenght);
+		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 		// TODO: check and test the use of the malloca instead
 		// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/malloca?view=vs-2019
 		char* message = (char*)alloca(length * sizeof(char));
@@ -102,7 +102,7 @@ int main(void)
 	std::string fragmentShader = 
 		"#version 330 core\n"
 		"\n"
-		"layout(location = 0) out vec4 position;\n"
+		"layout(location = 0) out vec4 color;\n"
 		"\n"
 		"void main()\n"
 		"{\n"

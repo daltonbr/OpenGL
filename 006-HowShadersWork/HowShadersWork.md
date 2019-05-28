@@ -1,8 +1,11 @@
 # How Shaders Work in OpenGL
 
+Shaders are program that runs on our GPU.
+These hardware (GPU's) are designed to be much faster for specific tasks.
+
 Two of the most used shaders are **Vertex Shaders** and **Fragment Shaders**
 
-Some other examples of shaders are Tesselation, Geometry and Compute.
+Some other examples of shaders are Tessellation, Geometry and Compute.
 
 Shaders are used when the GPU start "drawing" our data.
 
