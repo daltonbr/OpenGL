@@ -12,4 +12,4 @@ Our shaders need to match the chosen layout.
 
 Position, texture coordinates, normals, colors are all **attributes** and we will give then an index.
 
-See more here (glVertexAttribPointer documentation)[http://docs.gl/gl4/glVertexAttribPointer]
+See more here [glVertexAttribPointer documentation](http://docs.gl/gl4/glVertexAttribPointer)
