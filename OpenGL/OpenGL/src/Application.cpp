@@ -5,6 +5,40 @@
 #include <string>
 #include <sstream>
 
+//TODO: insert a preprocessor way to filter this with other compilers
+// MSVC Function - Compiler intrinsic
+#define ASSERT(x) if (!(x)) __debugbreak();
+
+//TODO: add a DEBUG preprocessor keywork like
+/*
+	#ifdef DEBUG
+		#define GLCall(x) GLClearError(); x; ASSERT(GLLogCall(...))
+	#else
+		#define GLCall(x) x
+	#endif
+*/
+
+// __FILE__ and __LINE__ are not compiler intrisic
+#define GLCall(x) GLClearError();\
+	x;\
+	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+
+static void GLCleanError()
+{
+	while (glGetError() != GL_NO_ERROR);
+}
+
+static bool GLLogCall(const char* function, const char* file, int line)
+{
+	while (GLenum error = glGetError())
+	{
+		std::cout << "[OpenGL Error] (" << std::hex << error << std::dec << "): " <<
+					function << " " << file << ":" << line << std::endl;
+		return false;
+	}
+	return true;
+}
+
 struct ShaderProgramSource
 {
 	std::string VertexSource;
@@ -157,8 +191,10 @@ int main(void)
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));		
+
+		// Correct code
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
