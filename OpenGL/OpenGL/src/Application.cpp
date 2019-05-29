@@ -130,7 +130,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(640, 480, "OpenGL Playground", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -139,6 +139,8 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
+
+	glfwSwapInterval(1);
 
 	/* This function must be called after creating the OpenGL Context */
 	if (glewInit() != GLEW_OK)
@@ -179,7 +181,17 @@ int main(void)
 	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
 
 	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
+
+	// Binding the shader
 	GLCall(glUseProgram(shader));
+
+	// Retrieving the location of the uniform
+	GLCall(int location = glGetUniformLocation(shader, "u_Color"));
+	ASSERT(location != -1);
+	GLCall(glUniform4f(location, 0.3f, 1.0f, 0.4f, 1.0f));
+
+	float red = 0.0f;
+	float increment = 0.01f;
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -187,7 +199,15 @@ int main(void)
 		/* Render here */
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
+		GLCall(glUniform4f(location, red, 0.5f, 0.4f, 1.0f));
 		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
+		if (red > 1.0f)
+			increment = -0.01f;
+		else if (red < 0.0f)
+			increment = +0.01f;
+
+		red += increment;
 
 		/* Swap front and back buffers */
 		GLCall(glfwSwapBuffers(window));
