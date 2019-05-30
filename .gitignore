@@ -1,1 +1,6 @@
 .vscode/
+.vs/
+
+# Visual Studio generated
+OpenGL/bin/
+OpenGL/bin-int/
