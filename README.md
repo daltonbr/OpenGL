@@ -11,3 +11,5 @@ This is my personal notes, from the course [OpenGL course](https://www.youtube.c
 * [07 - Writing Shader](./docs/07-WritingShader/WritingShader.md)
 * [09 - Index Buffer](./docs/09-IndexBuffer/IndexBuffer.md)
 * [10 - Dealing With Errors](./docs/10-DealingWithErrors/DealingWithErrors.md)
+
+This project use [Premake5](https://github.com/premake/premake-core) to generate the Visual Studio 2017 solution.

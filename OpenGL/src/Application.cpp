@@ -4,9 +4,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-//#include <intrin.h>
-
-#define DEBUG
 
 //TODO: insert a preprocessor way to filter this with other compilers
 // MSVC Function - Compiler intrinsic
