@@ -11,5 +11,11 @@ This is my personal notes, from the course [OpenGL course](https://www.youtube.c
 * [07 - Writing Shader](./docs/07-WritingShader/WritingShader.md)
 * [09 - Index Buffer](./docs/09-IndexBuffer/IndexBuffer.md)
 * [10 - Dealing With Errors](./docs/10-DealingWithErrors/DealingWithErrors.md)
+* [11 - Uniforms](./docs/11-Uniforms/Uniforms.md)
+* [12 - VertexArrays - VAO](./docs/12-VertexArrays/VertexArrays.md)
 
-This project use [Premake5](https://github.com/premake/premake-core) to generate the Visual Studio 2017 solution.
+This project use [Premake5](https://github.com/premake/premake-core) to generate the Visual Studio 2017 solution. (OSX still in the works, check branch ```premake```)
+
+## Interesting read
+
+[Porting Source To Linux - NVIDIA slides](https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Porting%20Source%20to%20Linux.pdf)
