@@ -8,6 +8,7 @@
 #include "Renderer.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
 struct ShaderProgramSource
 {
@@ -133,8 +134,8 @@ int main(void)
 	{
 		float positions[] = {
 			-0.5f, -0.5f, // 0
-			0.5f, -0.5f, // 1
-			0.5f,  0.5f, // 2
+			 0.5f, -0.5f, // 1
+			 0.5f,  0.5f, // 2
 			-0.5f,  0.5f  // 3
 		};
 
@@ -144,26 +145,14 @@ int main(void)
 			2, 3, 0
 		};
 
-		// Generate and Bind a VAO - Vertex Array Object
-		unsigned int vao;
-		GLCall(glGenVertexArrays(1, &vao));
-		GLCall(glBindVertexArray(vao));
-
-		// unsigned int buffer;
-		// GLCall(glGenBuffers(1, &buffer));
-		// GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer));
-		// GLCall(glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
+		VertexArray va;
 		VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
-		// Enable and set the layout of VertexAttributes
-		GLCall(glEnableVertexAttribArray(0));
-		GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, (const void*)0));
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		va.AddBuffer(vb, layout);
 
 		// index buffer object
-		// unsigned int ibo;
-		// GLCall(glGenBuffers(1, &ibo));
-		// GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
-		// GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
 		IndexBuffer ib(indices, 6);
 
 		ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
@@ -178,7 +167,7 @@ int main(void)
 		GLCall(glUniform4f(location, 0.3f, 1.0f, 0.4f, 1.0f));
 
 		// Unbind
-		GLCall(glBindVertexArray(0));
+		va.Unbind();
 		GLCall(glUseProgram(0));
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
@@ -195,7 +184,7 @@ int main(void)
 			GLCall(glUseProgram(shader));
 			GLCall(glUniform4f(location, red, 0.5f, 0.4f, 1.0f));
 
-			GLCall(glBindVertexArray(vao));
+			va.Bind();
 			ib.Bind();
 
 			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
