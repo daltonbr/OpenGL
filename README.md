@@ -13,6 +13,8 @@ This is my personal notes, from the course [OpenGL course](https://www.youtube.c
 * [10 - Dealing With Errors](./docs/10-DealingWithErrors/DealingWithErrors.md)
 * [11 - Uniforms](./docs/11-Uniforms/Uniforms.md)
 * [12 - VertexArrays - VAO](./docs/12-VertexArrays/VertexArrays.md)
+* [15 - Shader Abstraction](./docs/15-ShaderAbstraction/ShaderAbstraction.md)
+* [16 - Renderer](./docs/16-Renderer/Renderer.md)
 
 This project use [Premake5](https://github.com/premake/premake-core) to generate the Visual Studio 2017 solution. (OSX still in the works, check branch ```premake```)
 

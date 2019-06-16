@@ -2,6 +2,10 @@
 
 #include <GL/glew.h>
 
+#include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
+
 //TODO: insert a preprocessor way to filter this with other compilers
 // MSVC Function - Compiler intrinsic
 #ifdef PLATFORM_WINDOWS
@@ -19,3 +23,10 @@
 
 void GLClearError();
 bool GLLogCall(const char* function, const char* file, const int line);
+
+class Renderer
+{
+public:
+	void Clear() const;
+	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+};

@@ -60,7 +60,6 @@ public:
 		m_Elements.push_back({ GL_UNSIGNED_BYTE, count, GL_TRUE });
 		m_Stride += count * VertexBufferElement::GetSizeOfType(GL_UNSIGNED_BYTE);
 	}
-	// const std::vector<VertexBufferElement>&
 	inline const std::vector<VertexBufferElement>& GetElements() const { return m_Elements; }
 	inline unsigned int GetStride() const { return m_Stride; }
 };
