@@ -18,6 +18,13 @@ This is my personal notes, from the course [OpenGL course](https://www.youtube.c
 
 This project use [Premake5](https://github.com/premake/premake-core) to generate the Visual Studio 2017 solution. (OSX still in the works, check branch ```premake```)
 
+## Libraries
+
+We are using here
+
+* [OpenGL Mathematics](https://glm.g-truc.net/) - handling maths in OpenGL
+* [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h) reading texture files
+
 ## Interesting read
 
 [Porting Source To Linux - NVIDIA slides](https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Porting%20Source%20to%20Linux.pdf)
