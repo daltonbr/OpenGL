@@ -29,7 +29,7 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "OpenGL Playground", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "OpenGL Playground", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -53,10 +53,10 @@ int main(void)
 	// Creating a scope here to keep a Valid OpenGL Context
 	{
 		float positions[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, // 0
-			 0.5f, -0.5f, 1.0f, 0.0f, // 1
-			 0.5f,  0.5f, 1.0f, 1.0f, // 2
-			-0.5f,  0.5f, 0.0f, 1.0f  // 3
+			100.f, 100.f, 0.0f, 0.0f, // 0
+			200.f, 100.f, 1.0f, 0.0f, // 1
+			200.f, 200.f, 1.0f, 1.0f, // 2
+			100.f, 200.f, 0.0f, 1.0f  // 3
 		};
 
 		// Index Buffer
@@ -79,13 +79,17 @@ int main(void)
 		// index buffer object
 		IndexBuffer ib(indices, 6);
 
-		glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
-		//glm::mat4 perspective = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, -1.0f, 100.f);
+		glm::mat4 proj = glm::ortho(0.f, 1280.f, 0.f, 720.f, -1.0f, 1.0f);
+		// creates a Identity matrix and translate it to simulate a camera movement
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100.f, -100.f, 0.f));  
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
+
+		glm::mat4 mvp = proj * view * model;
 
 		Shader shader("res/shaders/Basic.shader");
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.3f, 1.0f, 0.4f, 1.0f);
-		shader.SetUniformMat4f("u_MVP", proj);
+		shader.SetUniformMat4f("u_MVP", mvp);
 
 		Texture texture("res/textures/falloutboy.png");
 		texture.Bind();

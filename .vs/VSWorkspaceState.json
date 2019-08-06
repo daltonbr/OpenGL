@@ -4,8 +4,8 @@
     "\\OpenGL",
     "\\OpenGL\\res",
     "\\OpenGL\\res\\shaders",
-    "\\OpenGL\\src"
+    "\\OpenGL\\src",
+    "\\OpenGL\\src\\vendor"
   ],
-  "SelectedNode": "\\OpenGL.sln",
   "PreviewInSolutionExplorer": false
 }
