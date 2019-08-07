@@ -99,14 +99,10 @@ int main(void)
 		glm::mat4 proj = glm::ortho(0.f, 1280.f, 0.f, 720.f, -1.0f, 1.0f);
 		// creates a Identity matrix and translate it to simulate a camera movement
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100.f, -100.f, 0.f));  
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
-
-		glm::mat4 mvp = proj * view * model;
 
 		Shader shader("res/shaders/Basic.shader");
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.3f, 1.0f, 0.4f, 1.0f);
-		shader.SetUniformMat4f("u_MVP", mvp);
 
 		Texture texture("res/textures/falloutboy.png");
 		texture.Bind();
@@ -130,14 +126,11 @@ int main(void)
 		ImGui::StyleColorsDark();
 		//ImGui::StyleColorsClassic();
 
-		// Our state
-		bool show_demo_window = true;
-		bool show_another_window = false;
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
+
+		glm::vec3 translation(200, 200, 0);
 
 		float red = 0.0f;
 		float increment = 0.01f;
@@ -153,8 +146,13 @@ int main(void)
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+			glm::mat4 mvp = proj * view * model;
+
+
 			shader.Bind();
 			shader.SetUniform4f("u_Color", red, 0.5f, 0.4f, 1.0f);
+			shader.SetUniformMat4f("u_MVP", mvp);
 
 			renderer.Draw(va, ib, shader);
 
@@ -167,25 +165,8 @@ int main(void)
 
 			// Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 			{
-				static float f = 0.0f;
-				static int counter = 0;
-
-				ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-				ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-				ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-				ImGui::Checkbox("Another Window", &show_another_window);
-
-				ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-				ImGui::ColorEdit3("clear color", (float*)& clear_color); // Edit 3 floats representing a color
-
-				if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-					counter++;
-				ImGui::SameLine();
-				ImGui::Text("counter = %d", counter);
-
+				ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 1280.0f);
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-				ImGui::End();
 			}
 
 			// Rendering
