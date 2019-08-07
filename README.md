@@ -27,6 +27,8 @@ We are using here
 * [OpenGL Mathematics](https://glm.g-truc.net/) - handling maths in OpenGL
 * [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h) reading texture files
 
+* [Dear ImGUI](https://github.com/ocornut/imgui) v.1.72b
+
 ## Interesting read
 
 [Porting Source To Linux - NVIDIA slides](https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Porting%20Source%20to%20Linux.pdf)
