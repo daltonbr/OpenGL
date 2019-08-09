@@ -70,10 +70,10 @@ int main(void)
 	// Creating a scope here to keep a Valid OpenGL Context
 	{
 		float positions[] = {
-			100.f, 100.f, 0.0f, 0.0f, // 0
-			200.f, 100.f, 1.0f, 0.0f, // 1
-			200.f, 200.f, 1.0f, 1.0f, // 2
-			100.f, 200.f, 0.0f, 1.0f  // 3
+			-50.0f, -50.0f, 0.0f, 0.0f, // 0
+			 50.0f, -50.0f, 1.0f, 0.0f, // 1
+			 50.0f,  50.0f, 1.0f, 1.0f, // 2
+			-50.0f,  50.0f, 0.0f, 1.0f  // 3
 		};
 
 		// Index Buffer
@@ -98,7 +98,7 @@ int main(void)
 
 		glm::mat4 proj = glm::ortho(0.f, 1280.f, 0.f, 720.f, -1.0f, 1.0f);
 		// creates a Identity matrix and translate it to simulate a camera movement
-		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100.f, -100.f, 0.f));  
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, 0.f, 0.f));  
 
 		Shader shader("res/shaders/Basic.shader");
 		shader.Bind();
@@ -130,7 +130,8 @@ int main(void)
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
-		glm::vec3 translation(200, 200, 0);
+		glm::vec3 translationA(200, 200, 0);
+		glm::vec3 translationB(400, 200, 0);
 
 		float red = 0.0f;
 		float increment = 0.01f;
@@ -146,15 +147,24 @@ int main(void)
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-			glm::mat4 mvp = proj * view * model;
+			{
+				glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA);
+				glm::mat4 mvp = proj * view * model;
+				//shader.SetUniform4f("u_Color", red, 0.5f, 0.4f, 1.0f);
+				shader.Bind();
+				shader.SetUniformMat4f("u_MVP", mvp);
 
+				renderer.Draw(va, ib, shader);
+			}
 
-			shader.Bind();
-			shader.SetUniform4f("u_Color", red, 0.5f, 0.4f, 1.0f);
-			shader.SetUniformMat4f("u_MVP", mvp);
+			{
+				glm::mat4 model = glm::translate(glm::mat4(1.0f), translationB);
+				glm::mat4 mvp = proj * view * model;
+				shader.Bind();
+				shader.SetUniformMat4f("u_MVP", mvp);
 
-			renderer.Draw(va, ib, shader);
+				renderer.Draw(va, ib, shader);
+			}
 
 			if (red > 1.0f)
 				increment = -0.01f;
@@ -165,7 +175,8 @@ int main(void)
 
 			// Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 			{
-				ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 1280.0f);
+				ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, 1280.0f);
+				ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, 1280.0f);
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			}
 
