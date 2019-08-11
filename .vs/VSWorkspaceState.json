@@ -5,7 +5,9 @@
     "\\OpenGL\\res",
     "\\OpenGL\\res\\shaders",
     "\\OpenGL\\src",
-    "\\OpenGL\\src\\vendor"
+    "\\OpenGL\\src\\vendor",
+    "\\OpenGL\\src\\vendor\\imgui"
   ],
+  "SelectedNode": "\\OpenGL\\src\\vendor\\imgui\\LICENSE.txt",
   "PreviewInSolutionExplorer": false
 }
