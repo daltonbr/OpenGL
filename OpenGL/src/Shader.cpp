@@ -47,7 +47,7 @@ ShaderProgramSource Shader::ParseShader(const std::string& filepath)
 		}
 		else
 		{
-			ss[(int)type] << line << '\n';
+			ss[static_cast<int>(type)] << line << '\n';
 		}
 	}
 
@@ -69,7 +69,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
 		// TODO: check and test the use of the malloca instead
 		// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/malloca?view=vs-2019
-		char* message = (char*)alloca(length * sizeof(char));
+		char* message = static_cast<char*>(alloca(length * sizeof(char)));
 		GLCall(glGetShaderInfoLog(id, length, &length, message));
 		std::cout << "[ERROR] Failed to compile "
 			<< (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
@@ -109,27 +109,27 @@ void Shader::Unbind() const
 	GLCall(glUseProgram(0));
 }
 
-void Shader::SetUniform1i(const std::string& name, int value)
+void Shader::SetUniform1i(const std::string& name, const int value) const
 {
 	GLCall(glUniform1i(GetUniformLocation(name), value));
 }
 
-void Shader::SetUniform1f(const std::string& name, float value)
+void Shader::SetUniform1f(const std::string& name, const float value) const
 {
 	GLCall(glUniform1f(GetUniformLocation(name), value));
 }
 
-void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
+void Shader::SetUniform4f(const std::string& name, const float v0, const float v1, const float v2, const float v3) const
 {
-	GLCall(glUniform4f(static_cast<GLint>(GetUniformLocation(name)), v0, v1, v2, v3));
+	GLCall(glUniform4f((GetUniformLocation(name)), v0, v1, v2, v3));
 }
 
-void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
+void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix) const
 {
 	GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 }
 
-int Shader::GetUniformLocation(const std::string& name)
+int Shader::GetUniformLocation(const std::string& name) const
 {
 	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
 	{
