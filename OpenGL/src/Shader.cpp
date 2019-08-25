@@ -69,7 +69,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
 		// TODO: check and test the use of the malloca instead
 		// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/malloca?view=vs-2019
-		char* message = static_cast<char*>(alloca(length * sizeof(char)));
+		char* message = static_cast<char*>(_malloca(length * sizeof(char)));
 		GLCall(glGetShaderInfoLog(id, length, &length, message));
 		std::cout << "[ERROR] Failed to compile "
 			<< (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
